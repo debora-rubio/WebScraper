@@ -2,14 +2,14 @@ import requests
 from bs4 import BeautifulSoup
 
 class Raspador:
-    def __init__(self, nome, url):
-        self.nome = nome
+    def __init__(self, nome, url):                 # contrutor da classe, executa objeto criado (url jornal). 
+        self.nome = nome                           # atributos da classe, nome dos jornais e url para acessar as manchetes.
         self.url = url
 
-    def coletar_manchetes(self, limite=5):
-        print(f"\nManchetes do {self.nome}:\n")
-        try:
-            response = requests.get(self.url)
+    def coletar_manchetes(self, limite=5):         # método para coletar as manchetes, limite de 5 manchetes por jornal.
+        print(f"\nManchetes do {self.nome}:\n")    
+        try:                                       # avisa se der erro ao acessar o site do jornal.
+            response = requests.get(self.url)      # 
             soup = BeautifulSoup(response.text, "html.parser")
             titulos = soup.find_all("h3")
             for i, titulo in enumerate(titulos[:limite], start=1):
