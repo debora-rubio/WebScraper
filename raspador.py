@@ -1,28 +1,32 @@
 import requests
 from bs4 import BeautifulSoup
 
-def raspador_bbc():
-    url = "https://www.bbc.com/portuguese"
-    response = requests.get(url)
-    soup = BeautifulSoup(response.text, "html.parser")
-    titulos = soup.find_all("h3")
-    print("\nManchetes da BBC:\n")
-    for i, titulo in enumerate(titulos[:5], start=1):
-        print(f"{i}. {titulo.get_text(strip=True)}")
+class Raspador:
+    def __init__(self, nome, url):
+        self.nome = nome
+        self.url = url
 
-def raspador_estadao():
-    url = "https://www.estadao.com.br/"
-    response = requests.get(url)
-    soup = BeautifulSoup(response.text, "html.parser")
-    titulos = soup.find_all("h3")
-    print("\nManchetes do Estadão:\n")
-    for i, titulo in enumerate(titulos[:5], start=1):
-        print(f"{i}. {titulo.get_text(strip=True)}")
+    def coletar_manchetes(self, limite=5):
+        print(f"\nManchetes do {self.nome}:\n")
+        try:
+            response = requests.get(self.url)
+            soup = BeautifulSoup(response.text, "html.parser")
+            titulos = soup.find_all("h3")
+            for i, titulo in enumerate(titulos[:limite], start=1):
+                print(f"{i}. {titulo.get_text(strip=True)}")
+        except Exception as e:
+            print(f"Erro ao acessar {self.nome}: {e}")
 
 # Programa principal
 if __name__ == "__main__":
-    raspador_bbc()
-    raspador_estadao()
+    # Criando objetos para cada jornal
+    bbc = Raspador("BBC", "https://www.bbc.com/portuguese")
+    estadao = Raspador("Estadão", "https://www.estadao.com.br/")
+
+    # Chamando o método para coletar manchetes
+    bbc.coletar_manchetes()
+    estadao.coletar_manchetes()
+
 
 
 
