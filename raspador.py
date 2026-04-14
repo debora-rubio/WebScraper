@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-# URL de exemplo (pode ser qualquer site de notícias ou blog)
+# URL BBC.
 url = "https://www.bbc.com/portuguese"
 
 # Faz a requisição HTTP
@@ -14,7 +14,7 @@ soup = BeautifulSoup(response.text, "html.parser")
 titulos = soup.find_all("h3")
 
 print("Manchetes encontradas:\n")
-for i, titulo in enumerate(titulos[:10], start=1):  # mostra só 10 para não ficar enorme
+for i, titulo in enumerate(titulos[:5], start=1):  # 5 primeiros titulos h3 do jornal
     print(f"{i}. {titulo.get_text(strip=True)}")
 
 
