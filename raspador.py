@@ -7,7 +7,7 @@ class Raspador:
         self.url = url
 
     def coletar_manchetes(self, limite=5):         # método para coletar as manchetes, limite de 5 manchetes por jornal.
-        print(f"\nManchetes do {self.nome}:\n")    
+        print(f"\nManchetes do {self.nome}:\n")    # (na linha acima a função foi encapsulada na classe, para ser chamada depois).
         try:                                       # avisa se der erro ao acessar o site do jornal.
             response = requests.get(self.url)      # baixa o html do site do jornal.
             soup = BeautifulSoup(response.text, "html.parser")  # interpreta o html usando o beautifulsoup.
